@@ -1,0 +1,10 @@
+mysql:
+  host: 127.0.0.1
+  port: 3307
+  config: charset=utf8mb4&parseTime=True&loc=Local
+  db_name: chat
+  username: root
+  password: 051102ydq
+  max_idle_conns: 10
+  max_open_conns: 100
+  log_mode: info

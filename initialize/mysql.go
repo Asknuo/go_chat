@@ -3,7 +3,6 @@ package initialize
 import (
 	"os"
 
-	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -20,10 +19,9 @@ func InitGorm() *gorm.DB {
 		Logger: logger.Default.LogMode(mysqlCfg.LogLevel()), // 设置日志级别
 	})
 	if err != nil {
-		global.Log.Error("Failed to connect to MySQL:", zap.Error(err))
+		global.Log.Error("Failed to connect to MySQL")
 		os.Exit(1)
 	}
-
 	// 获取底层的 SQL 数据库连接对象
 	sqlDB, _ := db.DB()
 	// 设置数据库连接池中的最大空闲连接数

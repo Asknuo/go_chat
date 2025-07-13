@@ -1,10 +1,15 @@
 package main
 
 import (
-	initialize "gochat/initlize"
+	flag "gochat/flag"
+	"gochat/global"
+	"gochat/initialize"
 )
 
 func main() {
-	initialize.InitGorm() // 初始化数据库连接
+	global.Config = initialize.InitConfig() // 初始化配置
+	global.Log = initialize.InitLogger()
+	global.DB = initialize.InitGorm() // 初始化数据库连接
 
+	flag.InitFlag()
 }

@@ -1,6 +1,6 @@
 mysql:
   host: 127.0.0.1
-  port: 3307
+  port: 3306
   config: charset=utf8mb4&parseTime=True&loc=Local
   db_name: chat
   username: root
@@ -8,3 +8,10 @@ mysql:
   max_idle_conns: 10
   max_open_conns: 100
   log_mode: info
+zap:
+    level: debug
+    filename: ./gochat.log
+    max_size: 200
+    max_backups: 30
+    max_age: 5
+    is_console_print: true

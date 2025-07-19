@@ -13,6 +13,7 @@ const (
 
 type User struct {
 	gorm.Model
+	Email    string     `gorm:"size:100;unique" json:"email"` // 用户邮箱，唯一
 	Username string     `gorm:"size:50" json:"username"`
 	Password string     `gorm:"size:255" json:"-"`
 	Avatar   string     `gorm:"size:100" json:"avatar"`

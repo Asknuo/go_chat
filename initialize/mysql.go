@@ -22,6 +22,7 @@ func InitGorm() *gorm.DB {
 		global.Log.Error("Failed to connect to MySQL")
 		os.Exit(1)
 	}
+	global.Log.Info("MySQL 数据库连接成功")
 	// 获取底层的 SQL 数据库连接对象
 	sqlDB, _ := db.DB()
 	// 设置数据库连接池中的最大空闲连接数

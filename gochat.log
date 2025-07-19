@@ -1,3 +1,20 @@
 2025-07-13T19:52:18.642+0800	[31merror[31m	initialize/mysql.go:22	Failed to connect to MySQL
 2025-07-13T19:53:36.321+0800	[34minfo[32m	flag/enter.go:33	表结构迁移成功
 2025-07-13T19:53:36.322+0800	[34minfo[32m	flag/enter.go:57	App ran successfully
+2025-07-14T17:12:07.098+0800	[34minfo[0m	flag/enter.go:33	表结构迁移成功
+2025-07-14T17:12:07.099+0800	[34minfo[0m	flag/enter.go:57	App ran successfully
+2025-07-19T16:41:42.346+0800	[34minfo[0m	initialize/redis.go:34	Redis连接成功
+2025-07-19T16:41:42.366+0800	[31merror[0m	initialize/mongo.go:27	MongoDB连接失败	{"error": "error parsing uri: invalid host \"\": port must be in the range [1, 65535]"}
+2025-07-19T16:42:38.896+0800	[34minfo[0m	initialize/redis.go:34	Redis连接成功
+2025-07-19T16:42:38.918+0800	[31merror[0m	initialize/mongo.go:27	MongoDB连接失败	{"error": "error parsing uri: scheme must be \"mongodb\" or \"mongodb+srv\""}
+2025-07-19T16:46:47.597+0800	[34minfo[0m	initialize/redis.go:34	Redis连接成功
+2025-07-19T16:46:47.621+0800	[31merror[0m	initialize/mongo.go:27	MongoDB连接失败	{"error": "error parsing uri: invalid host \"\": port must be in the range [1, 65535]"}
+2025-07-19T16:47:41.987+0800	[34minfo[0m	initialize/redis.go:34	Redis连接成功
+2025-07-19T16:47:42.007+0800	[31merror[0m	initialize/mongo.go:29	MongoDB连接失败	{"error": "error parsing uri: invalid host \"\": port must be in the range [1, 65535]"}
+2025-07-19T16:55:49.961+0800	[34minfo[0m	initialize/redis.go:34	Redis连接成功
+2025-07-19T16:55:49.981+0800	[31merror[0m	initialize/mongo.go:29	MongoDB连接失败	{"error": "error parsing uri: invalid host \"\": port must be in the range [1, 65535]"}
+2025-07-19T17:01:16.890+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-19T17:01:16.914+0800	[31merror[0m	initialize/mongo.go:25	MongoDB连接失败	{"error": "error parsing uri: invalid host \"\": port must be in the range [1, 65535]"}
+2025-07-19T17:11:30.183+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-19T17:11:30.211+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-19T17:11:30.228+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功

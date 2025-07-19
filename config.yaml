@@ -15,3 +15,17 @@ zap:
     max_backups: 30
     max_age: 5
     is_console_print: true
+system:
+    host: 127.0.0.1
+    port: 8080
+    env: release
+    router_prefix: api
+    use_multipoint: true
+    sessions_secret: J-51EzVnP3aH-H8EO5C41OKYmangA45-aSCi4hBro4s=
+    oss_type: local
+redis:
+    host: 127.0.0.1
+    port: 6379
+mongo:
+    host: 127.0.0.1
+    port: 27017

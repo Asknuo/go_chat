@@ -39,11 +39,11 @@ func coloredLevelEncoder(level zapcore.Level, enc zapcore.PrimitiveArrayEncoder)
 	case zapcore.DebugLevel:
 		enc.AppendString(Green + level.String() + Reset)
 	case zapcore.InfoLevel:
-		enc.AppendString(Blue + level.String() + Green)
+		enc.AppendString(Blue + level.String() + Reset)
 	case zapcore.WarnLevel:
-		enc.AppendString(Yellow + level.String() + Yellow)
+		enc.AppendString(Yellow + level.String() + Reset)
 	case zapcore.ErrorLevel, zapcore.DPanicLevel, zapcore.PanicLevel, zapcore.FatalLevel:
-		enc.AppendString(Red + level.String() + Red)
+		enc.AppendString(Red + level.String() + Reset)
 	default:
 		enc.AppendString(level.String())
 	}

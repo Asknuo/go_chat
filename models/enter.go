@@ -17,7 +17,3 @@ func AutoMigrate() {
 		fmt.Println("数据库迁移失败:", err)
 	}
 }
-
-func main() {
-	AutoMigrate() // 调用自动迁移函数
-}

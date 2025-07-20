@@ -29,3 +29,16 @@ redis:
 mongo:
     host: 127.0.0.1
     port: 27017
+email:
+    host : smtp.qq.com
+    port: 465
+    from: 3263296956@qq.com
+    nickname: Askanuo
+    secret: oxzbljibsmnfchgi
+    is_ssl: true
+captcha:
+    height: 80
+    width: 240
+    length: 6
+    max_skew: 0.7
+    dot_count: 80

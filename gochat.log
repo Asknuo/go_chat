@@ -18,3 +18,32 @@
 2025-07-19T17:11:30.183+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
 2025-07-19T17:11:30.211+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
 2025-07-19T17:11:30.228+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-20T16:09:39.692+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-20T16:09:39.723+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-20T16:09:39.732+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-20T16:18:21.508+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-20T16:18:21.534+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-20T16:18:21.543+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-20T16:21:39.694+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-20T16:21:39.721+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-20T16:21:39.728+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-20T16:31:19.849+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-20T16:31:19.877+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-20T16:31:19.885+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-20T20:52:15.799+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-20T20:52:15.839+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-20T20:52:15.852+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-20T21:05:40.368+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-20T21:05:40.394+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-20T21:05:40.404+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-20T21:29:42.373+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-20T21:29:42.417+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-20T21:29:42.436+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-20T21:36:10.598+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-20T21:36:10.626+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-20T21:36:10.636+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-20T21:36:54.502+0800	[31merror[0m	utlis/sendcode.go:32	无法发送邮件:	{"error": "short response: \u0000\u0000\u0000\u001a\u0000\u0000\u0000"}
+2025-07-20T21:43:06.776+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-20T21:43:06.808+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-20T21:43:06.821+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-20T21:43:46.366+0800	[31merror[0m	utlis/sendcode.go:32	无法发送邮件:	{"error": "short response: \u0000\u0000\u0000\u001a\u0000\u0000\u0000"}

@@ -7,10 +7,6 @@ import (
 
 func AutoMigrate() {
 	err := global.DB.AutoMigrate(
-		&Group{},
-		&GroupMessage{},
-		&GroupMember{},
-		&PrivateMsg{},
 		&User{},
 	)
 	if err != nil {

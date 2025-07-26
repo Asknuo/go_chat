@@ -16,5 +16,6 @@ func LoginService(u models.User) (models.User, error) {
 		}
 		return user, nil
 	}
+
 	return models.User{}, err
 }

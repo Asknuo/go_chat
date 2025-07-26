@@ -47,3 +47,40 @@
 2025-07-20T21:43:06.808+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
 2025-07-20T21:43:06.821+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
 2025-07-20T21:43:46.366+0800	[31merror[0m	utlis/sendcode.go:32	无法发送邮件:	{"error": "short response: \u0000\u0000\u0000\u001a\u0000\u0000\u0000"}
+2025-07-25T16:31:49.992+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-25T16:31:50.022+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-25T16:31:50.031+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-25T16:35:13.064+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-25T16:35:13.105+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-25T16:35:13.115+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-25T16:35:43.685+0800	[31merror[0m	service/ws.go:124	数据格式不正确
+2025-07-25T16:35:55.681+0800	[31merror[0m	service/ws.go:124	数据格式不正确
+2025-07-25T16:40:32.949+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-25T16:40:32.984+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-25T16:40:32.995+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-25T16:41:15.699+0800	[31merror[0m	service/ws.go:124	数据格式不正确
+2025-07-25T16:41:16.552+0800	[31merror[0m	service/ws.go:124	数据格式不正确
+2025-07-26T15:52:05.909+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-26T15:52:05.947+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-26T15:52:05.959+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-26T15:53:02.135+0800	[31merror[0m	api/login.go:36	保存用户状态失败:	{"error": "Error 1054 (42S22): Unknown column 'signature' in 'field list'"}
+2025-07-26T15:53:34.812+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-26T15:53:34.835+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-26T15:53:34.841+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-26T15:53:35.023+0800	[34minfo[0m	flag/enter.go:33	表结构迁移成功
+2025-07-26T15:53:35.023+0800	[34minfo[0m	flag/enter.go:57	App ran successfully
+2025-07-26T15:55:09.481+0800	[31merror[0m	api/login.go:43	生成token失败:	{"error": "key is of invalid type"}
+2025-07-26T15:59:16.272+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-26T15:59:16.302+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-26T15:59:16.308+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-26T16:07:36.920+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-26T16:07:36.951+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-26T16:07:36.958+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-26T16:10:54.327+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-26T16:10:54.355+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-26T16:10:54.363+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-26T16:12:10.391+0800	[31merror[0m	service/ws.go:126	读取错误
+2025-07-26T16:14:15.450+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-26T16:14:15.483+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-26T16:14:15.491+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-26T16:16:20.378+0800	[31merror[0m	service/ws.go:128	读取错误

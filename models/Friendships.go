@@ -4,19 +4,14 @@ import (
 	"time"
 )
 
-type FriendshipStatus string
-
-const (
-	FriendshipPending  FriendshipStatus = "pending"
-	FriendshipAccepted FriendshipStatus = "accepted"
-	FriendshipRejected FriendshipStatus = "rejected"
-)
-
 type Friendship struct {
-	ID        uint             `gorm:"primaryKey" json:"id"`
-	UserID    uint             `gorm:"index" json:"user_id"`
-	FriendID  uint             `gorm:"index" json:"friend_id"`
-	Status    FriendshipStatus `gorm:"type:enum('pending','accepted','rejected');default:'pending'" json:"status"`
-	CreatedAt time.Time        `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt time.Time        `gorm:"autoUpdateTime" json:"updated_at"`
+	ID        uint      `gorm:"primaryKey" json:"id"`
+	User      User      `gorm:"foreignKey:UserID" json:"-"` // 关联用户
+	UserID    uint      `gorm:"not null;index" json:"user_id"`
+	Friend    User      `gorm:"foreignKey:FriendID" json:"friend"` // 关联好友信息
+	FriendID  uint      `gorm:"not null;index" json:"-"`
+	Status    string    `gorm:"type:varchar(20);check:status IN ('pending','accepted','rejected')" json:"status"`
+	Note      string    `gorm:"size:100" json:"note"`
+	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }

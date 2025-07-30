@@ -97,6 +97,9 @@ func Handler(c *gin.Context) {
 		global.Log.Error("在数据库未找到该用户!")
 	}
 	touid := c.Query("touid")
+	if touid == "" {
+		touid = "0"
+	}
 	clientProtocols := websocket.Subprotocols(c.Request)
 	conn, err := (&websocket.Upgrader{
 		WriteBufferSize: 1024,

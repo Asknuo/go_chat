@@ -1,28 +1,75 @@
 package service
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"gochat/global"
 	"gochat/utlis"
+	"strings"
+	"time"
 
 	"github.com/gorilla/websocket"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.uber.org/zap"
 )
 
 func (manager *ClientManager) Start() {
 	fmt.Println("----------正在监听连接----------")
 	for {
 		select {
-		case conn := <-Manager.Register: // 建立连接
+		case conn := <-manager.Register: // 建立连接
 			fmt.Printf("建立新连接: %v", conn.SenderID)
 			Manager.Clients[conn.SenderID] = conn
+			// 发送连接成功消息
 			replyMsg := &Msg{
 				Code:    utlis.WebsocketSuccess,
 				Content: "已连接至服务器",
 			}
-			msg, _ := json.Marshal(replyMsg)
-			_ = conn.Socket.WriteMessage(websocket.TextMessage, msg)
-		case conn := <-Manager.Unregister: // 断开连接
+			msg, err := json.Marshal(replyMsg)
+			if err != nil {
+				global.Log.Error("消息编码失败", zap.Error(err))
+				continue
+			}
+			if err := conn.Socket.WriteMessage(websocket.TextMessage, msg); err != nil {
+				global.Log.Error("发送连接成功消息失败", zap.Error(err))
+			}
+			userID := strings.Split(conn.SenderID, "->")[0]
+			collection := global.MongoDBClient.Database(global.Config.Mongo.Name).Collection("friend_requests")
+			cursor, err := collection.Find(context.Background(), bson.M{"to_user_id": userID, "read": 0})
+			if err != nil {
+				global.Log.Error("查询未读消息失败", zap.Error(err))
+				continue
+			}
+			for cursor.Next(context.Background()) {
+				var mongoMsg struct {
+					Content string `bson:"content"`
+				}
+				if err := cursor.Decode(&mongoMsg); err != nil {
+					global.Log.Error("解码消息失败", zap.Error(err))
+					continue
+				}
+				select {
+				case conn.Send <- []byte(mongoMsg.Content):
+					// 更新消息为已读
+					_, err := collection.UpdateOne(
+						context.Background(),
+						bson.M{"to_user_id": userID, "content": mongoMsg.Content, "read": 0},
+						bson.M{"$set": bson.M{"read": 1, "read_at": time.Now()}},
+					)
+					if err != nil {
+						global.Log.Error("更新消息状态失败", zap.Error(err))
+					} else {
+						global.Log.Info("推送未读消息", zap.String("user_id", userID))
+					}
+				default:
+					global.Log.Warn("推送未读消息失败，通道阻塞", zap.String("user_id", userID))
+				}
+			}
+			if err := cursor.Close(context.Background()); err != nil {
+				global.Log.Error("关闭MongoDB cursor失败", zap.Error(err))
+			}
+		case conn := <-manager.Unregister: // 断开连接
 			if _, ok := Manager.Clients[conn.SenderID]; ok {
 				replyMsg := &Msg{
 					Code:    utlis.WebsocketEnd,
@@ -32,46 +79,80 @@ func (manager *ClientManager) Start() {
 				_ = conn.Socket.WriteMessage(websocket.TextMessage, msg)
 				close(conn.Send)
 				delete(Manager.Clients, conn.SenderID)
+				global.Log.Info("客户端注销", zap.String("sender_id", conn.SenderID))
 			}
-		case boardcast := <-Manager.Boardcast:
-			message := boardcast.Message
-			recId := boardcast.Client.ReveiverID
-			flag := false //默认不在线
-			for id, conn := range Manager.Clients {
-				if id != recId {
+		case broadcast := <-manager.Boardcast:
+			switch broadcast.Type {
+			case "friend_request":
+				var req struct {
+					Type       string `json:"type"`         // "friend_request"
+					FromUserID string `json:"from_user_id"` // 发送方ID
+					ToUserID   string `json:"to_user_id"`   // 接收方ID
+					Note       string `json:"note"`         // 备注
+					Code       int    `json:"code"`         // 200
+				}
+				if err := json.Unmarshal(broadcast.Message, &req); err != nil {
+					global.Log.Error("解析好友请求失败", zap.Error(err))
 					continue
 				}
-				select {
-				case conn.Send <- message:
-					flag = true
-				default:
-					close(conn.Send)
-					delete(Manager.Clients, conn.SenderID)
+				message, _ := json.Marshal(broadcast.Message)
+
+				targetUserID := ""
+				if broadcast.Client.ReveiverID != "" {
+					parts := strings.Split(broadcast.Client.ReveiverID, "->")
+					if len(parts) == 2 {
+						targetUserID = parts[0] // touid
+					}
 				}
-			}
-			id := boardcast.Client.SenderID
-			if flag {
+				if targetUserID == "" {
+					global.Log.Warn("无效的ReceiverID", zap.String("receiver_id", broadcast.Client.ReveiverID))
+					continue
+				}
+				flag := false // 是否找到在线客户端
+				for senderID, conn := range manager.Clients {
+					// 匹配目标用户的客户端
+					if senderID == targetUserID || strings.HasPrefix(senderID, targetUserID+"->") {
+						select {
+						case conn.Send <- message:
+							flag = true
+							global.Log.Info("消息已发送", zap.String("to", senderID))
+						default:
+							global.Log.Warn("客户端通道阻塞", zap.String("to", senderID))
+							close(conn.Send)
+							delete(manager.Clients, senderID)
+						}
+					}
+				}
+
+				// 通知发送者
 				replyMsg := &Msg{
 					Code:    utlis.WebsocketOnlineReply,
 					Content: "对方在线应答",
 				}
-				msg, _ := json.Marshal(replyMsg)
-				_ = boardcast.Client.Socket.WriteMessage(websocket.TextMessage, msg)
-				err := InsertMsg(global.Config.Mongo.Name, id, string(message), 1, int64(3*month)) //1表示在线，在线即是已读
-				if err != nil {
-					global.Log.Error("消息插入mongodb失败")
+				if !flag {
+					replyMsg.Code = utlis.WebsocketOfflineReply
+					replyMsg.Content = "对方不在线应答"
 				}
-			} else {
-				fmt.Println("对方不在线")
-				replyMsg := &Msg{
-					Code:    utlis.WebsocketOfflineReply,
-					Content: "对方不在线应答",
-				}
-				msg, _ := json.Marshal(replyMsg)
-				_ = boardcast.Client.Socket.WriteMessage(websocket.TextMessage, msg)
-				err := InsertMsg(global.Config.Mongo.Name, id, string(message), 0, int64(3*month)) //1表示在线，在线即是已读
+				msg, err := json.Marshal(replyMsg)
 				if err != nil {
-					global.Log.Error("消息插入mongodb失败")
+					global.Log.Error("消息编码失败", zap.Error(err))
+					continue
+				}
+				if err := broadcast.Client.Socket.WriteMessage(websocket.TextMessage, msg); err != nil {
+					global.Log.Error("发送应答消息失败", zap.Error(err))
+				}
+				// 存储消息到 MongoDB
+				readStatus := 0
+				if flag {
+					readStatus = 1 // 在线即标记为已读
+				}
+				if broadcast.Type == "friend_request" || broadcast.Type == "friend_response" || broadcast.Type == "friend_list" {
+					err = InsertFriendReqMsg(global.Config.Mongo.Name, broadcast.Client.SenderID, string(message), readStatus, int64(3*month))
+				} else {
+
+				}
+				if err != nil {
+					global.Log.Error("消息插入MongoDB失败", zap.Error(err))
 				}
 			}
 		}

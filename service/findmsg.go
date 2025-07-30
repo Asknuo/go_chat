@@ -3,24 +3,31 @@ package service
 import (
 	"context"
 	"gochat/global"
+	"strings"
 	"time"
+
+	"go.mongodb.org/mongo-driver/bson"
+	"go.uber.org/zap"
 )
 
-type Trainer struct {
-	Content   string `bson:"content"`   // 内容
-	StartTime int64  `bson:"startTime"` // 创建时间
-	EndTime   int64  `bson:"endTime"`   // 过期时间
-	Read      uint   `bson:"read"`      // 已读
-}
-
-func InsertMsg(database, id string, content string, isread uint, expire int64) error {
-	collection := global.MongoDBClient.Database(database).Collection(id)
-	comment := Trainer{
-		Content:   content,
-		StartTime: time.Now().Unix(),
-		EndTime:   time.Now().Unix() + expire,
-		Read:      isread,
+func InsertFriendReqMsg(dbName, senderID, content string, read int, expire int64) error {
+	collection := global.MongoDBClient.Database(dbName).Collection("friend_requests")
+	parts := strings.Split(senderID, "->")
+	fromUserID := parts[0]
+	toUserID := ""
+	if len(parts) == 2 {
+		toUserID = parts[1]
 	}
-	_, err := collection.InsertOne(context.TODO(), comment)
+	_, err := collection.InsertOne(context.Background(), bson.M{
+		"from_user_id": fromUserID,
+		"to_user_id":   toUserID,
+		"content":      content,
+		"read":         read,
+		"created_at":   time.Now(),
+		"expire_at":    time.Now().Add(time.Duration(expire)),
+	})
+	if err != nil {
+		global.Log.Error("插入MongoDB消息失败", zap.Error(err))
+	}
 	return err
 }

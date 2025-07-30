@@ -5,4 +5,5 @@ type ApiGroup struct {
 	RegisterApi     RegisterApi
 	PersonalInfoApi PersonalInfoApi
 	ForgetPsApi     ForgetPsApi
+	LogoutApi       LogoutApi
 }

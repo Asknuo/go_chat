@@ -33,3 +33,11 @@ type UserInfo struct {
 	Avatar    string `json:"avatar" binding:"required"`
 	ID        uint   `json:"id" binding:"required"`
 }
+
+type FriendRequestMsg struct {
+	Type       string `json:"type"` // friend_request, friend_response, friend_list
+	FromUserID string `json:"from_user_id"`
+	ToUserID   string `json:"to_user_id"`
+	Note       string `json:"note"`
+	Status     string `json:"status"`
+}

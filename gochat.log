@@ -84,3 +84,82 @@
 2025-07-26T16:14:15.483+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
 2025-07-26T16:14:15.491+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
 2025-07-26T16:16:20.378+0800	[31merror[0m	service/ws.go:128	读取错误
+2025-07-30T16:50:16.699+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T16:50:16.732+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T16:50:16.744+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:01:19.510+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:01:19.549+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:01:19.559+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:01:45.086+0800	[31merror[0m	service/ws.go:139	读取错误
+2025-07-30T17:01:45.086+0800	[34minfo[0m	service/listenserver.go:82	客户端注销	{"sender_id": "1->0"}
+2025-07-30T17:04:29.091+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:04:29.126+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:04:29.134+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:05:20.121+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:05:20.151+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:05:20.159+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:06:55.841+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:06:55.873+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:06:55.881+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:08:43.320+0800	[31merror[0m	service/ws.go:139	读取错误
+2025-07-30T17:08:43.320+0800	[34minfo[0m	service/listenserver.go:82	客户端注销	{"sender_id": "1->0"}
+2025-07-30T17:09:02.442+0800	[31merror[0m	api/addfriend.go:65	读取WebSocket消息失败	{"error": "websocket: close 1006 (abnormal closure): unexpected EOF"}
+2025-07-30T17:11:04.670+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:11:04.705+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:11:04.713+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:11:41.170+0800	[31merror[0m	api/addfriend.go:117	目标用户不存在	{"error": "record not found"}
+2025-07-30T17:11:48.512+0800	[31merror[0m	api/addfriend.go:95	不能添加自己为好友!
+2025-07-30T17:18:35.760+0800	[31merror[0m	utlis/sendcode.go:32	无法发送邮件:	{"error": "short response: \u0000\u0000\u0000\u001a\u0000\u0000\u0000"}
+2025-07-30T17:20:41.517+0800	[31merror[0m	utlis/sendcode.go:32	无法发送邮件:	{"error": "short response: \u0000\u0000\u0000\u001a\u0000\u0000\u0000"}
+2025-07-30T17:21:38.152+0800	[31merror[0m	utlis/sendcode.go:32	无法发送邮件:	{"error": "short response: \u0000\u0000\u0000\u001a\u0000\u0000\u0000"}
+2025-07-30T17:25:36.207+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:25:36.244+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:25:36.256+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:27:20.379+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:27:20.411+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:27:20.418+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:35:20.442+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:35:20.472+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:35:20.480+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:41:52.900+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:41:52.933+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:41:52.943+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:47:17.942+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:47:17.977+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:47:17.986+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:49:53.809+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:49:53.839+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:49:53.847+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:50:14.197+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T17:50:14.228+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T17:50:14.239+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T17:50:19.646+0800	[31merror[0m	api/addfriend.go:96	不能添加自己为好友!
+2025-07-30T17:50:25.715+0800	[31merror[0m	api/addfriend.go:118	目标用户不存在	{"error": "record not found"}
+2025-07-30T17:51:21.626+0800	[31merror[0m	api/addfriend.go:89	请选择添加的好友!
+2025-07-30T17:56:10.808+0800	[31merror[0m	api/addfriend.go:89	请选择添加的好友!
+2025-07-30T18:00:41.061+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T18:00:41.091+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T18:00:41.100+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T18:04:19.958+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T18:04:19.987+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T18:04:19.994+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T18:04:39.944+0800	[31merror[0m	api/addfriend.go:96	不能添加自己为好友!
+2025-07-30T18:37:15.054+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T18:37:15.091+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T18:37:15.102+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T18:37:30.002+0800	[31merror[0m	api/addfriend.go:95	不能添加自己为好友!
+2025-07-30T18:37:33.630+0800	[31merror[0m	api/addfriend.go:170	添加好友失败!	{"error": "Error 1054 (42S22): Unknown column 'note' in 'field list'"}
+2025-07-30T18:39:13.447+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T18:39:13.477+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T18:39:13.487+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T18:39:13.940+0800	[34minfo[0m	flag/enter.go:33	表结构迁移成功
+2025-07-30T18:39:13.940+0800	[34minfo[0m	flag/enter.go:57	App ran successfully
+2025-07-30T18:39:39.247+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T18:39:39.276+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T18:39:39.286+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T18:42:44.133+0800	[31merror[0m	service/ws.go:139	读取错误
+2025-07-30T18:42:44.133+0800	[34minfo[0m	service/listenserver.go:82	客户端注销	{"sender_id": "1->0"}
+2025-07-30T18:47:49.213+0800	[34minfo[0m	initialize/mysql.go:25	MySQL 数据库连接成功
+2025-07-30T18:47:49.253+0800	[34minfo[0m	initialize/redis.go:29	Redis连接成功
+2025-07-30T18:47:49.261+0800	[34minfo[0m	initialize/mongo.go:32	MongoDB连接成功
+2025-07-30T18:47:52.929+0800	[34minfo[0m	service/listenserver.go:63	推送未读消息	{"user_id": "2"}

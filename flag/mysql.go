@@ -8,5 +8,6 @@ import (
 func SqlMigrate() error {
 	return global.DB.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(
 		&models.User{},
+		&models.Friendship{},
 	)
 }

@@ -41,3 +41,8 @@ type FriendRequestMsg struct {
 	Note       string `json:"note"`
 	Status     string `json:"status"`
 }
+
+type LogoutReq struct {
+	Email string `json:"email" binding:"required,email"`
+	Token string `json:"token"`
+}

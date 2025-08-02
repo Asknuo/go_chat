@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"gochat/global"
@@ -48,6 +49,12 @@ func (addfriend *AddFriendApi) Addfriend(c *gin.Context) {
 	})
 	if err != nil {
 		c.Error(errors.New("无效token"))
+		return
+	}
+	key := "jwt_blacklist:" + token
+	exists, _ := global.RedisClient.Exists(context.Background(), key).Result()
+	if exists > 0 {
+		global.Log.Warn("token已存在于黑名单")
 		return
 	}
 	claims := tokenString.Claims.(jwt.MapClaims)

@@ -96,7 +96,6 @@ func (manager *ClientManager) Start() {
 					continue
 				}
 				message, _ := json.Marshal(broadcast.Message)
-
 				targetUserID := ""
 				if broadcast.Client.ReveiverID != "" {
 					parts := strings.Split(broadcast.Client.ReveiverID, "->")
@@ -123,7 +122,6 @@ func (manager *ClientManager) Start() {
 						}
 					}
 				}
-
 				// 通知发送者
 				replyMsg := &Msg{
 					Code:    utlis.WebsocketOnlineReply,
@@ -146,14 +144,142 @@ func (manager *ClientManager) Start() {
 				if flag {
 					readStatus = 1 // 在线即标记为已读
 				}
-				if broadcast.Type == "friend_request" || broadcast.Type == "friend_response" || broadcast.Type == "friend_list" {
-					err = InsertFriendReqMsg(global.Config.Mongo.Name, broadcast.Client.SenderID, string(message), readStatus, int64(3*month))
-				} else {
-
-				}
+				err = InsertFriendReqMsg(global.Config.Mongo.Name, broadcast.Client.SenderID, string(broadcast.Message), readStatus, int64(3*month))
 				if err != nil {
 					global.Log.Error("消息插入MongoDB失败", zap.Error(err))
 				}
+			case "friend_accepted":
+				var req struct {
+					Type       string `json:"type"`         // "friend_accepted"
+					FromUserID string `json:"from_user_id"` // 发送方ID
+					ToUserID   string `json:"to_user_id"`   // 接收方ID
+					Note       string `json:"note"`         // 备注
+					Code       int    `json:"code"`         // 200
+				}
+				if err := json.Unmarshal(broadcast.Message, &req); err != nil {
+					global.Log.Error("解析好友请求失败", zap.Error(err))
+					continue
+				}
+				message, _ := json.Marshal(broadcast.Message)
+				targetUserID := ""
+				if broadcast.Client.ReveiverID != "" {
+					parts := strings.Split(broadcast.Client.ReveiverID, "->")
+					if len(parts) == 2 {
+						targetUserID = parts[0] // touid
+					}
+				}
+				if targetUserID == "" {
+					global.Log.Warn("无效的ReceiverID", zap.String("receiver_id", broadcast.Client.ReveiverID))
+					continue
+				}
+				flag := false // 是否找到在线客户端
+				for senderID, conn := range manager.Clients {
+					// 匹配目标用户的客户端
+					if senderID == targetUserID || strings.HasPrefix(senderID, targetUserID+"->") {
+						select {
+						case conn.Send <- message:
+							flag = true
+							global.Log.Info("消息已发送", zap.String("to", senderID))
+						default:
+							global.Log.Warn("客户端通道阻塞", zap.String("to", senderID))
+							close(conn.Send)
+							delete(manager.Clients, senderID)
+						}
+					}
+				}
+				// 通知发送者
+				replyMsg := &Msg{
+					Code:    utlis.WebsocketOnlineReply,
+					Content: "对方在线应答",
+				}
+				if !flag {
+					replyMsg.Code = utlis.WebsocketOfflineReply
+					replyMsg.Content = "对方不在线应答"
+				}
+				msg, err := json.Marshal(replyMsg)
+				if err != nil {
+					global.Log.Error("消息编码失败", zap.Error(err))
+					continue
+				}
+				if err := broadcast.Client.Socket.WriteMessage(websocket.TextMessage, msg); err != nil {
+					global.Log.Error("发送应答消息失败", zap.Error(err))
+				}
+				// 存储消息到 MongoDB
+				readStatus := 0
+				if flag {
+					readStatus = 1 // 在线即标记为已读
+				}
+				err = InsertFriendReqMsg(global.Config.Mongo.Name, broadcast.Client.SenderID, string(broadcast.Message), readStatus, int64(3*month))
+				if err != nil {
+					global.Log.Error("消息插入MongoDB失败", zap.Error(err))
+				}
+			case "friend_rejected":
+				var req struct {
+					Type       string `json:"type"`         // "friend_accepted"
+					FromUserID string `json:"from_user_id"` // 发送方ID
+					ToUserID   string `json:"to_user_id"`   // 接收方ID
+					Note       string `json:"note"`         // 备注
+					Code       int    `json:"code"`         // 200
+				}
+				if err := json.Unmarshal(broadcast.Message, &req); err != nil {
+					global.Log.Error("解析好友请求失败", zap.Error(err))
+					continue
+				}
+				message, _ := json.Marshal(broadcast.Message)
+				targetUserID := ""
+				if broadcast.Client.ReveiverID != "" {
+					parts := strings.Split(broadcast.Client.ReveiverID, "->")
+					if len(parts) == 2 {
+						targetUserID = parts[0] // touid
+					}
+				}
+				if targetUserID == "" {
+					global.Log.Warn("无效的ReceiverID", zap.String("receiver_id", broadcast.Client.ReveiverID))
+					continue
+				}
+				flag := false // 是否找到在线客户端
+				for senderID, conn := range manager.Clients {
+					// 匹配目标用户的客户端
+					if senderID == targetUserID || strings.HasPrefix(senderID, targetUserID+"->") {
+						select {
+						case conn.Send <- message:
+							flag = true
+							global.Log.Info("消息已发送", zap.String("to", senderID))
+						default:
+							global.Log.Warn("客户端通道阻塞", zap.String("to", senderID))
+							close(conn.Send)
+							delete(manager.Clients, senderID)
+						}
+					}
+				}
+				// 通知发送者
+				replyMsg := &Msg{
+					Code:    utlis.WebsocketOnlineReply,
+					Content: "对方在线应答",
+				}
+				if !flag {
+					replyMsg.Code = utlis.WebsocketOfflineReply
+					replyMsg.Content = "对方不在线应答"
+				}
+				msg, err := json.Marshal(replyMsg)
+				if err != nil {
+					global.Log.Error("消息编码失败", zap.Error(err))
+					continue
+				}
+				if err := broadcast.Client.Socket.WriteMessage(websocket.TextMessage, msg); err != nil {
+					global.Log.Error("发送应答消息失败", zap.Error(err))
+				}
+				// 存储消息到 MongoDB
+				readStatus := 0
+				if flag {
+					readStatus = 1 // 在线即标记为已读
+				}
+				err = InsertFriendReqMsg(global.Config.Mongo.Name, broadcast.Client.SenderID, string(broadcast.Message), readStatus, int64(3*month))
+				if err != nil {
+					global.Log.Error("消息插入MongoDB失败", zap.Error(err))
+				}
+			case "private":
+
 			}
 		}
 	}

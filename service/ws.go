@@ -17,15 +17,8 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-type Target int
-
-const (
-	private Target = 1
-	public  Target = 2
-)
-
 type Msg struct {
-	Target  Target `json:"target"`
+	Target  string `json:"target"`
 	Type    string `josn:"type"`
 	Content string `json:"content"`
 	Code    int    `json:"code"`
@@ -78,6 +71,12 @@ func Handler(c *gin.Context) {
 	})
 	if err != nil {
 		c.Error(errors.New("无效token"))
+		return
+	}
+	key := "jwt_blacklist:" + token
+	exists, _ := global.RedisClient.Exists(context.Background(), key).Result()
+	if exists > 0 {
+		global.Log.Warn("token已存在于黑名单")
 		return
 	}
 	claims := tokenString.Claims.(jwt.MapClaims)
@@ -141,7 +140,7 @@ func (c *Client) Read() {
 			_ = c.Socket.Close()
 			break
 		}
-		if sendMsg.Target == private {
+		if sendMsg.Target == "private" {
 			r1, _ := global.RedisClient.Get(context.Background(), c.SenderID).Result()
 			r2, _ := global.RedisClient.Get(context.Background(), c.ReveiverID).Result()
 			if r1 > "3" && r2 == "" {
@@ -159,6 +158,7 @@ func (c *Client) Read() {
 			Manager.Boardcast <- &Boardcast{
 				Client:  c,
 				Message: []byte(sendMsg.Content),
+				Type:    "private",
 			}
 		}
 	}

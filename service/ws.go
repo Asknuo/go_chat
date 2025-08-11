@@ -19,7 +19,7 @@ import (
 
 type Msg struct {
 	Target  string `json:"target"`
-	Type    string `josn:"type"`
+	Type    string `json:"type"`
 	Content string `json:"content"`
 	Code    int    `json:"code"`
 }
@@ -140,7 +140,7 @@ func (c *Client) Read() {
 			_ = c.Socket.Close()
 			break
 		}
-		if sendMsg.Target == "private" {
+		if sendMsg.Type == "private" {
 			r1, _ := global.RedisClient.Get(context.Background(), c.SenderID).Result()
 			r2, _ := global.RedisClient.Get(context.Background(), c.ReveiverID).Result()
 			if r1 > "3" && r2 == "" {

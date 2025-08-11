@@ -46,3 +46,8 @@ type LogoutReq struct {
 	Email string `json:"email" binding:"required,email"`
 	Token string `json:"token"`
 }
+
+type GetHistoryMsgReq struct {
+	Touserid string `json:"touserid" binding:"required,touserid"`
+	Number   int    `json:"number"`
+}
